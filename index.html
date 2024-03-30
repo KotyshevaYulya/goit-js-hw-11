@@ -7,20 +7,24 @@
     <title>Vanilla App Template</title>
     
     <script type="module" crossorigin src="/goit-js-hw-11/commonHelpers.js"></script>
-    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-10c40100.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-5b791d57.js">
+    <link rel="stylesheet" href="/goit-js-hw-11/assets/vendor-cf6910df.css">
+    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-c0bbca74.css">
   </head>
   <body>
-    ENOENT: no such file or directory, open '/home/runner/work/goit-js-hw-11/goit-js-hw-11/src/partials/header.html'
-
-    <section>
-      <h1>Example page title</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="/goit-js-hw-11/assets/javascript-8dac5379.svg" alt="" />
-    </section>
-
-    <!-- Loads the specified .html file -->
-    ENOENT: no such file or directory, open '/home/runner/work/goit-js-hw-11/goit-js-hw-11/src/partials/vite-promo.html'
-
+    <div class="container">
+          <form class="search-form">
+              <input 
+              class="input-form"
+              type="text" 
+              name="query" 
+              placeholder="Search images..."
+              />
+            <button type="submit" class="btn-submit">Search</button>
+          </form>
+          <ul class="gallery"></ul>
+    </div>
     
+    <!-- <script type="module" src="./js/pixabay-api.js"></script> -->
   </body>
 </html>
