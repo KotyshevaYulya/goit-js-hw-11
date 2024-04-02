@@ -10,16 +10,28 @@ import { getPhoto } from './js/pixabay-api'
 import { symbolTemplate } from './js/render-functions';
 
 export const form = document.querySelector('.search-form');
-export const gallery = document.querySelector('.gallery');
+export const imgGallery = document.querySelector('.gallery');
+
+export let gallery = new SimpleLightbox('.gallery a');
+gallery.on('show.simplelightbox', function () {
+	// do something…
+});
+
+gallery.on('error.simplelightbox', function (e) {
+	console.log(e); // some usefull information
+});
+
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const userSearch = form.elements.query.value;
+    const userSearch = form.elements.query.value.trim();
+    imgGallery.innerHTML = '<div class="loader"></div>';
+
     if (userSearch === '') {
          iziToast.error({
         color: 'red',
         position: 'topRight',
-        message: `Будь ласка введіть дані!`,
+        message: `Fill in the input!`,
       });
     } else {
         getPhoto(userSearch).then(data => {
@@ -31,17 +43,24 @@ form.addEventListener("submit", (e) => {
                 });
                  e.target.reset();
             } else {
-                gallery.innerHTML = "";
                 const markup = symbolTemplate(data.hits);
-                gallery.insertAdjacentHTML("beforeend", markup);
+                imgGallery.insertAdjacentHTML("beforeend", markup);
                 e.target.reset();
-
-                const galleryBig = new SimpleLightbox('.gallery a', {
-                    captionsData: 'alt',
-                    captionDelay: 250,
-                });
-                
+                gallery.refresh();
+                //  const lightbox = new SimpleLightbox('.gallery a', {
+                // captionsData: 'alt',
+                //  });
             }
+        })
+        .catch(error => {
+            iziToast.error({
+                maxWidth: '432px',
+                height: '48px',
+                color: 'red',
+                position: 'topRight',
+                message: "Sorry, a technical error has occurred!",
+            });
         });
     }
+     imgGallery.innerHTML = "";
 });

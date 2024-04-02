@@ -16,7 +16,12 @@ export function getPhoto(userSearch) {
 
     const url = `${BASE_URL}${END_POINT}${key}&${params}`;
     
-    return fetch(url).then(res => res.json()); 
+     return fetch(url).then(res => {
+    if(!res.ok){
+        throw new Error(response.status);
+    }
+    return res.json();
+  }); 
 } 
 
 
