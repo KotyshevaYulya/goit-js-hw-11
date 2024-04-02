@@ -45,8 +45,8 @@ form.addEventListener("submit", (e) => {
             } else {
                 const markup = symbolTemplate(data.hits);
                 imgGallery.insertAdjacentHTML("beforeend", markup);
-                e.target.reset();
                 gallery.refresh();
+                e.target.reset();
                 //  const lightbox = new SimpleLightbox('.gallery a', {
                 // captionsData: 'alt',
                 //  });
