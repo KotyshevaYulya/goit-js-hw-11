@@ -159,3 +159,16 @@ img {
     transform: rotate(360deg);
   }
 }
+
+.block {
+  margin-right: auto;
+    margin-left: auto;
+    margin-top: 24px;
+    margin-bottom: 34px;
+    text-align: center;
+}
+
+.hidden {
+  /* visibility: hidden; */
+  display: none
+}

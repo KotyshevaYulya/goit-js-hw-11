@@ -11,6 +11,7 @@ import { symbolTemplate } from './js/render-functions';
 
 export const form = document.querySelector('.search-form');
 export const imgGallery = document.querySelector('.gallery');
+const loader = document.querySelector('.block');
 
 export let gallery = new SimpleLightbox('.gallery a');
 gallery.on('show.simplelightbox', function () {
@@ -24,6 +25,7 @@ gallery.on('error.simplelightbox', function (e) {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    loader.classList.remove("hidden");
     const userSearch = form.elements.query.value.trim();
     imgGallery.innerHTML = '<div class="loader"></div>';
 
@@ -32,7 +34,8 @@ form.addEventListener("submit", (e) => {
         color: 'red',
         position: 'topRight',
         message: `Fill in the input!`,
-      });
+         });
+        loader.classList.add("hidden");
     } else {
         getPhoto(userSearch).then(data => {
             if (data.total === 0) {
@@ -41,15 +44,14 @@ form.addEventListener("submit", (e) => {
                     position: 'topRight',
                     message: `"Sorry, there are no images matching your search query. Please try again!"`,
                 });
-                 e.target.reset();
+                e.target.reset();
+                loader.classList.add("hidden");
             } else {
                 const markup = symbolTemplate(data.hits);
                 imgGallery.insertAdjacentHTML("beforeend", markup);
                 gallery.refresh();
                 e.target.reset();
-                //  const lightbox = new SimpleLightbox('.gallery a', {
-                // captionsData: 'alt',
-                //  });
+                loader.classList.add("hidden");
             }
         })
         .catch(error => {
@@ -60,6 +62,7 @@ form.addEventListener("submit", (e) => {
                 position: 'topRight',
                 message: "Sorry, a technical error has occurred!",
             });
+            loader.classList.add("hidden");
         });
     }
      imgGallery.innerHTML = "";
